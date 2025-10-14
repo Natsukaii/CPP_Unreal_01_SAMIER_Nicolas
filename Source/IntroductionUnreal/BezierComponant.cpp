@@ -1,6 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "BezierComponant.h"
 
 // Sets default values for this component's properties
@@ -15,7 +12,7 @@ UBezierComponant::UBezierComponant()
 	InterpolationPosition = TArray<FVector>();
 
 	//private
-	MyActor = GetOwner();
+	MyActor = nullptr;
 	Timer = 0.0f;
 
 	//------------------Cours---------------------------
@@ -30,7 +27,8 @@ void UBezierComponant::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	MyActor = GetOwner();
+
 	
 }
 
@@ -40,6 +38,11 @@ void UBezierComponant::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	Timer += DeltaTime;
+	float Alpha = UMyTools::MyClamp(Timer / InterpolationDuration, 0, 1);
+
+	FVector Location = UMyTools::BezierInterp(InterpolationPosition, Alpha);
+
+	MyActor->SetActorLocation(Location);
 }
 

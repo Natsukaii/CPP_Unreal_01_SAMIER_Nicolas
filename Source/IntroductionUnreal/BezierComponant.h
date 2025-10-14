@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "MyTools.h"
 #include "BezierComponant.generated.h"
 
 
@@ -25,9 +26,9 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float InterpolationDuration;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditInstanceOnly, BlueprintReadOnly)
 	TArray<FVector> InterpolationPosition;
 
 private:
