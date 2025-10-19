@@ -24,12 +24,12 @@ FVector UExerciceFunction::FindShortestVector(const TArray<FVector>& Vectors)
 	else if (Vectors.Num() == 1)
 		return Vectors[0];
 
-	float ShortestSize = (Vectors[0].X * Vectors[0].X + Vectors[0].Y * Vectors[0].Y + Vectors[0].Z * Vectors[0].Z);
+	float ShortestSize = (Vectors[0].X + Vectors[0].Y + Vectors[0].Z );
 
 	int i = 1;
 	for (; i < Vectors.Num(); i++)
 	{
-		float CurrentSize = (Vectors[i].X * Vectors[i].X + Vectors[i].Y * Vectors[i].Y + Vectors[i].Z * Vectors[i].Z);
+		float CurrentSize = (Vectors[i].X + Vectors[i].Y + Vectors[i].Z);
 
 		if (CurrentSize < ShortestSize)
 		{
