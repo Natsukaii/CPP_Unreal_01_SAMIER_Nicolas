@@ -31,11 +31,21 @@ void UExerciceComponent::BeginPlay()
 // Called every frame
 void UExerciceComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
-	/*Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	float ScaleOscilation = (sin(DeltaTime * ScaleSpeed) + 1 ) /2 ;
+	AActor* Owner = GetOwner();
+	FVector CurrentScale = Owner->GetActorScale3D();
 
+	float ScaleOscilation = (cos(DeltaTime * ScaleSpeed) + 1) / 2;
 
-	GetOwner()->SetActorScale3D(BaseScale * NewScale);*/
+	float NewScaleX = FMath::Lerp(TargetScale, CurrentScale.X, ScaleOscilation);
+	float NewScaleY = FMath::Lerp(TargetScale, CurrentScale.Y, ScaleOscilation);
+	float NewScaleZ = FMath::Lerp(TargetScale, CurrentScale.Z, ScaleOscilation);
+
+	FVector NewScale = FVector(NewScaleX, NewScaleY, NewScaleZ);
+
+	Owner->SetActorScale3D(NewScale);
 }
+
+
 
