@@ -15,6 +15,8 @@ UExerciceComponent::UExerciceComponent()
 	BaseScale = FVector(1.0f, 1.0f, 1.0f);
 	TargetScale = 4.0f;
 	ScaleSpeed = 1.0f;
+	Timer = 0.0f;
+	bIsActive = false;
 }
 
 
@@ -33,10 +35,14 @@ void UExerciceComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	if (!bIsActive)
+		return;
+
 	AActor* Owner = GetOwner();
 	FVector CurrentScale = Owner->GetActorScale3D();
 
-	float ScaleOscilation = (cos(DeltaTime * ScaleSpeed) + 1) / 2;
+	Timer += DeltaTime;
+	float ScaleOscilation = (cos(Timer * ScaleSpeed) + 1) / 2;
 
 	float NewScaleX = FMath::Lerp(TargetScale, CurrentScale.X, ScaleOscilation);
 	float NewScaleY = FMath::Lerp(TargetScale, CurrentScale.Y, ScaleOscilation);
@@ -45,6 +51,16 @@ void UExerciceComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	FVector NewScale = FVector(NewScaleX, NewScaleY, NewScaleZ);
 
 	Owner->SetActorScale3D(NewScale);
+}
+
+void UExerciceComponent::StartOscillation()
+{
+	bIsActive = true;
+}
+
+void UExerciceComponent::StopOscillation()
+{
+	bIsActive = false;
 }
 
 

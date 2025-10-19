@@ -23,6 +23,13 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	
+	//Functions
+public:
+	UFUNCTION(BlueprintCallable, Category = "Scale")
+	void StartOscillation();
+	UFUNCTION(BlueprintCallable, Category = "Scale")
+	void StopOscillation();
 
 	//Variables
 private:
@@ -31,6 +38,6 @@ private:
 	float TargetScale;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	float ScaleSpeed;
-
-
+	float Timer;
+	bool bIsActive;
 };
