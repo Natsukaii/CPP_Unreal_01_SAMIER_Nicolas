@@ -19,6 +19,7 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	virtual void OnConstruction(const FTransform& Transform) override;
 
 public:	
 	// Called every frame
@@ -26,22 +27,35 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void StartBezierInterpolation();
+	/*UFUNCTION(BlueprintCallable)
+	void RotateTo(FVector Rotation, float Duration);
 	UFUNCTION(BlueprintCallable)
-	void StopBezierInterpolation();
-	UFUNCTION(BlueprintCallable)
-	void ResetInterpolation();
+	void ScaleTo(FVector Scale, float Duration);*/
+
 
 private:
+	UStaticMeshComponent* CreateBezierPoint(const int& Index);
+
+private:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "Visual")
+	UStaticMeshComponent* Mesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "Bezier")
+	UStaticMeshComponent* BezierPointList;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "Bezier")
 	float Duration;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "Bezier")
-	TArray<FVector> Point;
+	int PointCount;
+
+	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "Bezier")
+	TArray<UStaticMeshComponent*> BezierPoint;
+
 
 	USceneComponent* Root;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-	UStaticMeshComponent* Mesh;
-
 	float Timer;
 	bool IsInterpolate;
 
+	UStaticMesh* SphereMesh;
+	TArray<FVector> PointsLocation;
 };
