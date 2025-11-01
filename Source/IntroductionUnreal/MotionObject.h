@@ -27,6 +27,16 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void StartBezierInterpolation();
+	UFUNCTION(BlueprintCallable)
+	void StartRotateTo(FRotator Rotation, float InterDuration);
+	UFUNCTION(BlueprintCallable)
+	void StartSclaleTo(FVector Scale, float InterDuration);
+
+private:
+	void BezierInterpolation(const float& DeltaTime);
+	void RotateTo(const float& DeltaTime);
+	void SclaleTo(const float& DeltaTime);
+
 	/*UFUNCTION(BlueprintCallable)
 	void RotateTo(FVector Rotation, float Duration);
 	UFUNCTION(BlueprintCallable)
@@ -53,9 +63,21 @@ private:
 
 
 	USceneComponent* Root;
-	float Timer;
-	bool IsInterpolate;
+	float BezierTimer;
+	bool bIsInterpolate;
 
 	UStaticMesh* SphereMesh;
 	TArray<FVector> PointsLocation;
+
+	bool bIsRotateTo;
+	FRotator TargetRotation;
+	FRotator InitialRotation;
+	float RotateDuration;
+	float RotateTimer;
+
+	bool bIsScaleTo;
+	FVector TargetScale;
+	FVector InitialScale;
+	float ScaleDuration;
+	float ScaleTimer;
 };

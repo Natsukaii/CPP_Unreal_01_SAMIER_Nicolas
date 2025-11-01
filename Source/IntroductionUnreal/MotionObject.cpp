@@ -44,9 +44,20 @@ AMotionObject::AMotionObject()
 	PointsLocation = TArray<FVector>();
 
 	//private
-	Timer = 0.0f;
-	IsInterpolate = false;
+	BezierTimer = 0.0f;
+	bIsInterpolate = false;
 	PointCount = 0;
+
+	bIsRotateTo = false;
+	bIsScaleTo = false;
+	TargetRotation = FRotator::ZeroRotator;
+	InitialRotation = FRotator::ZeroRotator;
+	TargetScale = FVector::ZeroVector;
+	InitialScale = FVector::ZeroVector;
+	RotateDuration = 0.0f;
+	ScaleDuration = 0.0f;
+	RotateDuration = 0.0f;
+	ScaleTimer = 0.0f;
 
 }
 
@@ -112,21 +123,17 @@ void AMotionObject::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (!IsInterpolate)
-		return;
+	BezierInterpolation(DeltaTime);
 
-	Timer += DeltaTime;
-	float Alpha = UMyTools::MyClamp(Timer / Duration, 0, 1);
+	RotateTo(DeltaTime);
+	SclaleTo(DeltaTime);
 
-	FVector Location = UMyTools::BezierInterp(PointsLocation, Alpha);
-
-	Mesh->SetWorldLocation(Location);
 }
 
 void AMotionObject::StartBezierInterpolation()
 {
-	IsInterpolate = true;
-	Timer = 0.0f;
+	bIsInterpolate = true;
+	BezierTimer = 0.0f;
 
 	PointsLocation = TArray<FVector>();
 
@@ -135,6 +142,63 @@ void AMotionObject::StartBezierInterpolation()
 		//FVector PointLocation = BezierPoint->GetComponentLocation();
 		PointsLocation.Add(BezierPoint[i]->GetComponentLocation());
 	}
+}
+
+void AMotionObject::BezierInterpolation(const float& DeltaTime)
+{
+	if (!bIsInterpolate)
+		return;
+
+	BezierTimer += DeltaTime;
+	float Alpha = UMyTools::MyClamp(BezierTimer / Duration, 0, 1);
+
+	FVector Location = UMyTools::BezierInterp(PointsLocation, Alpha);
+
+	Mesh->SetWorldLocation(Location);
+}
+
+void AMotionObject::StartRotateTo(FRotator Rotation, float InterDuration)
+{
+	bIsRotateTo = true;
+	TargetRotation = Rotation;
+	RotateDuration = InterDuration;
+	InitialRotation = Mesh->GetComponentRotation();
+	RotateTimer = 0.0f;
+}
+
+void AMotionObject::RotateTo(const float& DeltaTime)
+{
+	if (!bIsRotateTo)
+		return;
+
+	RotateTimer += DeltaTime;
+	float Alpha = UMyTools::MyClamp(RotateTimer / RotateDuration, 0, 1);
+
+	FRotator NewRotation = FMath::Lerp(InitialRotation, TargetRotation, Alpha);
+
+	Mesh->SetWorldRotation(NewRotation);
+}
+
+void AMotionObject::StartSclaleTo(FVector Scale, float InterDuration)
+{
+	bIsScaleTo = true;
+	TargetScale = Scale;
+	ScaleDuration = InterDuration;
+	InitialScale = Mesh->GetComponentScale();
+	ScaleTimer = 0.0f;
+}
+
+void AMotionObject::SclaleTo(const float& DeltaTime)
+{
+	if (!bIsScaleTo)
+		return;
+
+	ScaleTimer += DeltaTime;
+	float Alpha = UMyTools::MyClamp(ScaleTimer / ScaleDuration, 0, 1);
+
+	FVector NewScale = FMath::Lerp(InitialScale, TargetScale, Alpha);
+
+	Mesh->SetWorldScale3D(NewScale);
 }
 
 //void AMotionObject::RotateTo(FVector Rotation, float Duration)
