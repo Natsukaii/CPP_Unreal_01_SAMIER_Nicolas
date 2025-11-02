@@ -9,41 +9,29 @@ AExerciceActor::AExerciceActor()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	//static ConstructorHelpers::FObjectFinder<UStaticMesh> CubeMeshFinder(TEXT("/Engine/EditorMeshes/EditorCube.EditorCube"));
-	//if (CubeMeshFinder.Succeeded())
-	//{
-	//	CubeMesh = CubeMeshFinder.Object;
-	//}
+	//création de la racine du composant
+	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	SetRootComponent(Root);
 
-	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SphereMeshFinder(TEXT("/Engine/EditorMeshes/EditorSphere.EditorSphere"));
-	//if (SphereMeshFinder.Succeeded())
-	//{
-	//	SphereMesh = SphereMeshFinder.Object;
-	//}
+	//Oncréer le Static Mesh et on l'attache a la racine
+	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	MeshComponent->SetupAttachment(Root);
 
-	////création de la racine du composant
-	//Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
-	//SetRootComponent(Root);
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> CubeMeshFinder(TEXT("/Engine/EditorMeshes/EditorCube.EditorCube"));
+	if (CubeMeshFinder.Succeeded())
+	{
+		//CubeMesh.Object;
+		MeshComponent->SetStaticMesh(CubeMeshFinder.Object);
+	}
 
-	////Oncréer le Static Mesh et on l'attache a la racine
-	//MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	//MeshComponent->SetupAttachment(Root);
 
-	//bIsCube = true;
-
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SphereMeshFinder(TEXT("/Engine/EditorMeshes/EditorSphere.EditorSphere"));
+	if (SphereMeshFinder.Succeeded())
+	{
+		//CubeMesh.Object;
+		MeshComponent->SetStaticMesh(SphereMeshFinder.Object);
+	}
 }
-
-//void AExerciceActor::OnConstruction(const FTransform& Transform)
-//{
-//	if (bIsCube)
-//	{
-//		MeshComponent->SetStaticMesh(CubeMesh);
-//	}
-//	else
-//	{
-//		MeshComponent->SetStaticMesh(SphereMesh);
-//	}
-//}
 
 // Called when the game starts or when spawned
 void AExerciceActor::BeginPlay()
