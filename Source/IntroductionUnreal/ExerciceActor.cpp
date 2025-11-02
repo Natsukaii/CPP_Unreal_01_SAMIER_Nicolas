@@ -68,7 +68,7 @@ void AExerciceActor::Tick(float DeltaTime)
 
 }
 
-FVector AExerciceActor::GetLocation_Implementation()
+const FVector AExerciceActor::GetLocation_Implementation()
 {
 	return MeshComponent->GetComponentLocation();
 }

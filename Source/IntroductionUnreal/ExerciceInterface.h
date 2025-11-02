@@ -23,6 +23,6 @@ class INTRODUCTIONUNREAL_API IExerciceInterface
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	//j'ai beaucoup d'erreurs si je fait une constant FVector& pour une raison qui m'est inconnue
-	FVector GetLocation(); 
+	//je n'ai pas fait la référence car ça ne compilait pas avec
+	const FVector GetLocation(); 
 };

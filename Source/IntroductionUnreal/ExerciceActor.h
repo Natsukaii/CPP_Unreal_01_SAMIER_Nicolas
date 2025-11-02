@@ -45,6 +45,6 @@ private: //Fonctions
 	virtual void OnConstruction(const FTransform& Transform) override;
 
 public: //fonction
-	//comme j'ai des erreur dans le Exercice Interface je n'ai pas fait la constant FVecteur& aussi ici
-	virtual FVector GetLocation_Implementation() override;
+	//je n'ai pas fait la référence car ça ne compilait pas avec
+	virtual const FVector GetLocation_Implementation() override;
 };
