@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ExerciceInterface.h"
 #include "ExerciceActor.generated.h"
 
 UCLASS()
-class INTRODUCTIONUNREAL_API AExerciceActor : public AActor
+class INTRODUCTIONUNREAL_API AExerciceActor : public AActor, public IExerciceInterface
 {
 	GENERATED_BODY()
 	
@@ -26,18 +27,24 @@ public:
 
 private: //Variables
 	
-//	UStaticMesh* CubeMesh;
-//	UStaticMesh* SphereMesh;
-//
-//	USceneComponent* Root;
-//
-//	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-//	UStaticMeshComponent* MeshComponent;
-//
-//	UPROPERTY(EditInstanceOnly)
-//	bool bIsCube;
-//
-//private: //Fonctions
-//	virtual void OnConstruction(const FTransform& Transform) override;
+	UStaticMesh* CubeMesh;
+	UStaticMesh* SphereMesh;
 
+	USceneComponent* Root;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	UStaticMeshComponent* MeshComponent;
+
+	UPROPERTY(EditInstanceOnly)
+	bool bIsCube;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	AActor* Actor;
+
+private: //Fonctions
+	virtual void OnConstruction(const FTransform& Transform) override;
+
+public: //fonction
+	//comme j'ai des erreur dans le Exercice Interface je n'ai pas fait la constant FVecteur& aussi ici
+	virtual FVector GetLocation_Implementation() override;
 };

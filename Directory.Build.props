@@ -1,0 +1,5 @@
+<Project>
+  <PropertyGroup>
+    <SetEnvCommand Condition="'$(SetEnvCommand)' == ''">set</SetEnvCommand>
+  </PropertyGroup>
+</Project>
