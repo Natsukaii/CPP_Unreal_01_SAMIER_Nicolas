@@ -26,11 +26,18 @@ public:
 
 private: //Variables
 	
-	UStaticMesh* SphereMesh;
-	UStaticMesh* CubeMesh;
+//	UStaticMesh* CubeMesh;
+//	UStaticMesh* SphereMesh;
+//
+//	USceneComponent* Root;
+//
+//	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+//	UStaticMeshComponent* MeshComponent;
+//
+//	UPROPERTY(EditInstanceOnly)
+//	bool bIsCube;
+//
+//private: //Fonctions
+//	virtual void OnConstruction(const FTransform& Transform) override;
 
-	USceneComponent* Root;
-
-	UPROPERTY(Edi)
-	UStaticMeshComponent* MeshComponent;
 };
