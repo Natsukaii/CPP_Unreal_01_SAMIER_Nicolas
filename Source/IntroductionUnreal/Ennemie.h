@@ -24,7 +24,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	//void TakeDamage_Implementation(float DamageAmount) override;
+	void TakeDamage_Implementation(float DamageAmount) override;
 
 private:
 
