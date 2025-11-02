@@ -4,17 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Health.h"
-#include "Ennemie.generated.h"
+#include "ExerciceActor.generated.h"
 
 UCLASS()
-class INTRODUCTIONUNREAL_API AEnnemie : public AActor, public IHealth
+class INTRODUCTIONUNREAL_API AExerciceActor : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AEnnemie();
+	AExerciceActor();
 
 protected:
 	// Called when the game starts or when spawned
@@ -24,8 +23,14 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	//void TakeDamage_Implementation(float DamageAmount) override;
 
-private:
+private: //Variables
+	
+	UStaticMesh* SphereMesh;
+	UStaticMesh* CubeMesh;
 
+	USceneComponent* Root;
+
+	UPROPERTY(Edi)
+	UStaticMeshComponent* MeshComponent;
 };
