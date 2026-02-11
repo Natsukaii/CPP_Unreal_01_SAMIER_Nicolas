@@ -21,11 +21,11 @@ AExerciceActor::AExerciceActor()
 		SphereMesh = SphereMeshFinder.Object;
 	}
 
-	//création de la racine du composant
+	//crï¿½ation de la racine du composant
 	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 	SetRootComponent(Root);
 
-	//Oncréer le Static Mesh et on l'attache a la racine
+	//Oncrï¿½er le Static Mesh et on l'attache a la racine
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	MeshComponent->SetupAttachment(Root);
 

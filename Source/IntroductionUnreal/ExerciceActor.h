@@ -45,6 +45,6 @@ private: //Fonctions
 	virtual void OnConstruction(const FTransform& Transform) override;
 
 public: //fonction
-	//je n'ai pas fait la référence car ça ne compilait pas avec
+	//je n'ai pas fait la rï¿½fï¿½rence car ï¿½a ne compilait pas avec
 	virtual const FVector GetLocation_Implementation() override;
 };
